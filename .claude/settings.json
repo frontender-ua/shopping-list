@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "additionalDirectories": ["../.wt"],
+    "allow": [
+      "mcp__board__*",
+      "Bash(git fetch *)",
+      "Bash(git show *)",
+      "Bash(git rev-parse *)",
+      "Bash(git worktree *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr view *)",
+      "Bash(npm test)",
+      "Bash(npm run lint)"
+    ],
+    "deny": [
+      "Bash(curl *)",
+      "Bash(gh pr merge *)"
+    ]
+  }
+}
