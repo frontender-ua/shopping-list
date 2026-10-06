@@ -24,5 +24,9 @@ export function createList(store) {
     items() {
       return [...items];
     },
+
+    count() {
+      return items.length;
+    },
   };
 }
