@@ -8,6 +8,8 @@ Take the next ticket from the board and work on it.
    - If `ticket` is null, say there is nothing to do and stop.
    - If `resumed` is true, you are continuing your own ticket after a restart:
      reuse its worktree (step 4) and pick up where the work stopped.
+   - If `claim` fails because another session of yours holds the ticket, say
+     so and stop. Do not retry and do not touch its worktree.
 2. Read `answer` and `notes` on the ticket. They are additions to the spec:
    answers to earlier questions and review feedback. They override the spec
    where they conflict with it.
