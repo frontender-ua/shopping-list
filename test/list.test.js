@@ -50,6 +50,12 @@ test("count reflects removals", () => {
   assert.equal(list.count(), 1);
 });
 
+test("count is 0 after removing the only item", () => {
+  const list = createList(memoryStore(["milk"]));
+  list.remove("milk");
+  assert.equal(list.count(), 0);
+});
+
 test("count does not change or save the list", () => {
   const store = memoryStore(["milk"]);
   let saves = 0;
