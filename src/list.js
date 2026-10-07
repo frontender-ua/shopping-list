@@ -3,7 +3,7 @@
 export function createList(store) {
   let items = store.load();
 
-  return {
+  const list = {
     add(name) {
       const trimmed = String(name).trim();
       if (!trimmed) throw new Error("item name is required");
@@ -28,5 +28,13 @@ export function createList(store) {
     count() {
       return items.length;
     },
+
+    summary() {
+      const n = list.count();
+      if (n === 0) return "Your list is empty";
+      return n === 1 ? "1 item" : `${n} items`;
+    },
   };
+
+  return list;
 }
