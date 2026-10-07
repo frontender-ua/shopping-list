@@ -69,3 +69,33 @@ test("count does not change or save the list", () => {
   assert.equal(saves, 0);
   assert.deepEqual(list.items(), ["milk"]);
 });
+
+test("remove returns false and does not save for a missing item", () => {
+  const store = memoryStore(["milk"]);
+  let saves = 0;
+  const save = store.save;
+  store.save = (items) => {
+    saves++;
+    save(items);
+  };
+  const list = createList(store);
+  assert.equal(list.remove("bread"), false);
+  assert.equal(saves, 0);
+  assert.deepEqual(list.items(), ["milk"]);
+});
+
+test("remove of the only item saves an empty list", () => {
+  const store = memoryStore(["milk"]);
+  const list = createList(store);
+  assert.equal(list.remove("milk"), true);
+  assert.deepEqual(list.items(), []);
+  assert.deepEqual(store.load(), []);
+});
+
+test("remove is case-sensitive", () => {
+  const store = memoryStore(["milk"]);
+  const list = createList(store);
+  assert.equal(list.remove("Milk"), false);
+  assert.deepEqual(list.items(), ["milk"]);
+  assert.deepEqual(store.load(), ["milk"]);
+});
