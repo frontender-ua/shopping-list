@@ -25,6 +25,45 @@ test("remove deletes and saves", () => {
   assert.deepEqual(store.load(), ["bread"]);
 });
 
+// Wraps a memory store and counts save() calls.
+function countingStore(initial) {
+  const inner = memoryStore(initial);
+  const store = {
+    saves: 0,
+    load: () => inner.load(),
+    save(items) {
+      store.saves += 1;
+      inner.save(items);
+    },
+  };
+  return store;
+}
+
+test("remove of a missing item returns false and does not save", () => {
+  const store = countingStore(["milk"]);
+  const list = createList(store);
+  assert.equal(list.remove("bread"), false);
+  assert.equal(store.saves, 0);
+  assert.deepEqual(list.items(), ["milk"]);
+});
+
+test("remove of the only item saves an empty list", () => {
+  const store = countingStore(["milk"]);
+  const list = createList(store);
+  assert.equal(list.remove("milk"), true);
+  assert.deepEqual(list.items(), []);
+  assert.equal(store.saves, 1);
+  assert.deepEqual(store.load(), []);
+});
+
+test("remove is case-sensitive", () => {
+  const store = countingStore(["milk"]);
+  const list = createList(store);
+  assert.equal(list.remove("Milk"), false);
+  assert.deepEqual(list.items(), ["milk"]);
+  assert.equal(store.saves, 0);
+});
+
 test("count is 0 for an empty list", () => {
   const list = createList(memoryStore());
   assert.equal(list.count(), 0);
