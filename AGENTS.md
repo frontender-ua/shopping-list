@@ -1,7 +1,3 @@
-# shopping-list
-
-Tiny test project: `npm test`, `npm run lint`. Specs: `specs/NNN-name/spec.md`.
-
 <!-- agent-board:start (managed by `board init`; edit outside these markers) -->
 ## Agent board
 
