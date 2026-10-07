@@ -69,3 +69,51 @@ test("count does not change or save the list", () => {
   assert.equal(saves, 0);
   assert.deepEqual(list.items(), ["milk"]);
 });
+
+function countingStore(initial) {
+  const store = memoryStore(initial);
+  const counted = { saves: 0, load: () => store.load() };
+  counted.save = (items) => {
+    counted.saves++;
+    store.save(items);
+  };
+  return counted;
+}
+
+test("add trims the name", () => {
+  const list = createList(countingStore());
+  list.add("  milk  ");
+  assert.deepEqual(list.items(), ["milk"]);
+});
+
+test("add throws on an empty or blank name and saves nothing", () => {
+  for (const name of ["", "   "]) {
+    const store = countingStore();
+    const list = createList(store);
+    assert.throws(() => list.add(name), { message: "item name is required" });
+    assert.deepEqual(list.items(), []);
+    assert.equal(store.saves, 0);
+  }
+});
+
+test("add treats a padded duplicate as a duplicate and saves nothing", () => {
+  const store = countingStore();
+  const list = createList(store);
+  list.add("milk");
+  assert.equal(store.saves, 1);
+  assert.equal(list.add(" milk "), false);
+  assert.deepEqual(list.items(), ["milk"]);
+  assert.equal(store.saves, 1);
+});
+
+test("add stores a number as a string", () => {
+  const list = createList(countingStore());
+  list.add(42);
+  assert.deepEqual(list.items(), ["42"]);
+});
+
+test("a successful add saves once", () => {
+  const store = countingStore();
+  createList(store).add("milk");
+  assert.equal(store.saves, 1);
+});
