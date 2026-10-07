@@ -18,7 +18,9 @@
       "Bash(gh pr create *)",
       "Bash(gh pr view *)",
       "Bash(npm test)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(board *)",
+      "Bash(npx -y @agent-board/agent *)"
     ],
     "deny": [
       "Bash(curl *)",

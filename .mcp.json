@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "board": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@agent-board/agent",
+        "mcp"
+      ],
+      "env": {
+        "BOARD_URL": "${BOARD_URL}",
+        "BOARD_AGENT_KEY": "${BOARD_AGENT_KEY}"
+      }
+    }
+  }
+}

@@ -2,9 +2,13 @@
 description: Take the next ticket from the board and work on it
 ---
 
-Take the next ticket from the board and work on it.
+<!-- agent-board: written by `board init`; init updates this file while this line is here -->
 
-1. Call the `claim` tool.
+Take the next ticket from the board and work on it. Board calls below are
+named by their MCP tool; in a shell use the `board` command of the same name
+(`claim` is `board claim`, `ask_human` is `board ask`).
+
+1. Call `claim`.
    - If `ticket` is null, say there is nothing to do and stop.
    - If `resumed` is true, you are continuing your own ticket after a restart:
      reuse its worktree (step 4) and pick up where the work stopped.
@@ -31,4 +35,4 @@ Take the next ticket from the board and work on it.
 7. If the spec, `answer` and `notes` do not answer something that changes
    behavior, call `ask_human` with one concrete question and stop. Do not
    guess, do not commit, do not open a PR.
-8. When the work is complete, run `/done`.
+8. When the work is complete, follow the done instructions.
