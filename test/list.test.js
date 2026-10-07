@@ -24,3 +24,43 @@ test("remove deletes and saves", () => {
   assert.equal(list.remove("milk"), true);
   assert.deepEqual(store.load(), ["bread"]);
 });
+
+test("moveUp swaps with the previous item", () => {
+  const list = createList(memoryStore(["milk", "bread", "eggs"]));
+  assert.equal(list.moveUp("eggs"), true);
+  assert.deepEqual(list.items(), ["milk", "eggs", "bread"]);
+});
+
+test("moveDown swaps with the next item", () => {
+  const list = createList(memoryStore(["milk", "bread", "eggs"]));
+  assert.equal(list.moveDown("milk"), true);
+  assert.deepEqual(list.items(), ["bread", "milk", "eggs"]);
+});
+
+test("move returns false at the ends and for missing items", () => {
+  const list = createList(memoryStore(["milk", "bread", "eggs"]));
+  assert.equal(list.moveUp("milk"), false);
+  assert.equal(list.moveDown("eggs"), false);
+  assert.equal(list.moveUp("butter"), false);
+  assert.equal(list.moveDown("butter"), false);
+  assert.deepEqual(list.items(), ["milk", "bread", "eggs"]);
+});
+
+test("moves are not saved", () => {
+  const store = memoryStore(["milk", "bread", "eggs"]);
+  const list = createList(store);
+  list.moveUp("eggs");
+  assert.deepEqual(store.load(), ["milk", "bread", "eggs"]);
+});
+
+test("add and remove after a move save the order items were added", () => {
+  const store = memoryStore(["milk", "bread", "eggs"]);
+  const list = createList(store);
+  list.moveUp("eggs");
+  list.add("butter");
+  assert.deepEqual(list.items(), ["milk", "eggs", "bread", "butter"]);
+  assert.deepEqual(store.load(), ["milk", "bread", "eggs", "butter"]);
+  list.remove("bread");
+  assert.deepEqual(list.items(), ["milk", "eggs", "butter"]);
+  assert.deepEqual(store.load(), ["milk", "eggs", "butter"]);
+});
