@@ -69,3 +69,33 @@ test("count does not change or save the list", () => {
   assert.equal(saves, 0);
   assert.deepEqual(list.items(), ["milk"]);
 });
+
+test("moveUp swaps with the previous item and saves", () => {
+  const store = memoryStore(["milk", "bread", "eggs"]);
+  const list = createList(store);
+  assert.equal(list.moveUp("eggs"), true);
+  assert.deepEqual(list.items(), ["milk", "eggs", "bread"]);
+  assert.deepEqual(store.load(), ["milk", "eggs", "bread"]);
+});
+
+test("moveUp returns false for the first or a missing item", () => {
+  const list = createList(memoryStore(["milk", "bread"]));
+  assert.equal(list.moveUp("milk"), false);
+  assert.equal(list.moveUp("nope"), false);
+  assert.deepEqual(list.items(), ["milk", "bread"]);
+});
+
+test("moveDown swaps with the next item and saves", () => {
+  const store = memoryStore(["milk", "bread", "eggs"]);
+  const list = createList(store);
+  assert.equal(list.moveDown("milk"), true);
+  assert.deepEqual(list.items(), ["bread", "milk", "eggs"]);
+  assert.deepEqual(store.load(), ["bread", "milk", "eggs"]);
+});
+
+test("moveDown returns false for the last or a missing item", () => {
+  const list = createList(memoryStore(["milk", "bread"]));
+  assert.equal(list.moveDown("bread"), false);
+  assert.equal(list.moveDown("nope"), false);
+  assert.deepEqual(list.items(), ["milk", "bread"]);
+});

@@ -1,4 +1,4 @@
-// A shopping list backed by a store (see store.js). add() and remove() save
+// A shopping list backed by a store (see store.js). add(), remove(), moveUp() and moveDown() save
 // the list after each change.
 export function createList(store) {
   let items = store.load();
@@ -17,6 +17,22 @@ export function createList(store) {
       const index = items.indexOf(name);
       if (index === -1) return false;
       items.splice(index, 1);
+      store.save(items);
+      return true;
+    },
+
+    moveUp(name) {
+      const index = items.indexOf(name);
+      if (index <= 0) return false;
+      [items[index - 1], items[index]] = [items[index], items[index - 1]];
+      store.save(items);
+      return true;
+    },
+
+    moveDown(name) {
+      const index = items.indexOf(name);
+      if (index === -1 || index === items.length - 1) return false;
+      [items[index + 1], items[index]] = [items[index], items[index + 1]];
       store.save(items);
       return true;
     },
