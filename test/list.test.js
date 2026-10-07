@@ -69,3 +69,18 @@ test("count does not change or save the list", () => {
   assert.equal(saves, 0);
   assert.deepEqual(list.items(), ["milk"]);
 });
+
+test("summary for an empty list", () => {
+  const list = createList(memoryStore());
+  assert.equal(list.summary(), "Your list is empty");
+});
+
+test("summary for one item", () => {
+  const list = createList(memoryStore(["milk"]));
+  assert.equal(list.summary(), "1 item");
+});
+
+test("summary for more than one item", () => {
+  const list = createList(memoryStore(["milk", "bread", "eggs"]));
+  assert.equal(list.summary(), "3 items");
+});
