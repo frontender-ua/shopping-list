@@ -19,4 +19,5 @@ with `/pick`; finish with `/done`.
 - One ticket at a time. After `ask_human`, `submit_for_review` or `release`,
   stop working on that ticket.
 - Call `heartbeat` after every meaningful step. If a board tool says to claim
-  again, stop and call `claim`.
+  again, stop and call `claim`. If it says another session holds the ticket,
+  stop at once: no commit, no push, no PR.
