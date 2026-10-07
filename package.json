@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "shopping-list": "bin/shopping-list.js"
+  },
   "description": "Tiny test project for the agent-board prototype.",
   "scripts": {
     "test": "node --test",
-    "lint": "node --check src/list.js && node --check src/store.js"
+    "lint": "node --check src/list.js && node --check src/store.js && node --check bin/shopping-list.js"
   }
 }
