@@ -104,7 +104,7 @@ test("an old format file loads", () => {
 
 test("usage errors exit with 2", () => {
   const { run } = setup();
-  for (const args of [[], ["bogus"], ["add"], ["remove"], ["set-category", "milk"], ["add", "milk", "--category"]]) {
+  for (const args of [[], ["bogus"], ["add"], ["remove"], ["set-category", "milk"], ["add", "milk", "--category"], ["add", "  "]]) {
     const r = run(...args);
     assert.equal(r.code, 2, args.join(" "));
     assert.match(r.err, /usage:/);
