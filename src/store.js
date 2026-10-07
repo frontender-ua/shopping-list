@@ -1,26 +1,26 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
-// Persists the list as a JSON array of item names.
+// Persists any JSON value to a file. Loading a missing file gives [].
 export function fileStore(path) {
   return {
     load() {
       return existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : [];
     },
-    save(items) {
-      writeFileSync(path, JSON.stringify(items, null, 2) + "\n");
+    save(data) {
+      writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
     },
   };
 }
 
-// In-memory store, used by the tests.
+// In-memory store, used by the tests. Stores a copy of any JSON value.
 export function memoryStore(initial = []) {
-  let saved = [...initial];
+  let saved = structuredClone(initial);
   return {
     load() {
-      return [...saved];
+      return structuredClone(saved);
     },
-    save(items) {
-      saved = [...items];
+    save(data) {
+      saved = structuredClone(data);
     },
   };
 }

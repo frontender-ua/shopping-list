@@ -6,6 +6,9 @@
   "description": "Tiny test project for the agent-board prototype.",
   "scripts": {
     "test": "node --test",
-    "lint": "node --check src/list.js && node --check src/store.js"
+    "lint": "node --check src/list.js && node --check src/store.js && node --check bin/shopping-list.js"
+  },
+  "bin": {
+    "shopping-list": "bin/shopping-list.js"
   }
 }
