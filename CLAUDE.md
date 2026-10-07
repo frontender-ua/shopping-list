@@ -11,6 +11,8 @@ with `/pick`; finish with `/done`.
   (PocketBase) API directly: use only the `board` tools.
 - Never work outside `../.wt/<ticket-id>`. Do not edit or commit in the main
   checkout.
+- Push only your ticket's branch. To bring it up to date with `main`, merge
+  `origin/main` into it; never rebase a pushed branch or force-push.
 - Requirements come from the spec on `main` plus the ticket's `answer` and
   `notes`. Nothing else.
 - When unsure, ask with `ask_human`; a paused ticket is cheaper than a wrong PR.

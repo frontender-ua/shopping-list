@@ -1,6 +1,8 @@
 {
   "permissions": {
-    "additionalDirectories": ["../.wt"],
+    "additionalDirectories": [
+      "../.wt"
+    ],
     "allow": [
       "mcp__board__*",
       "Bash(git fetch *)",
@@ -20,7 +22,16 @@
     ],
     "deny": [
       "Bash(curl *)",
-      "Bash(gh pr merge *)"
+      "Bash(gh pr merge *)",
+      "Bash(gh api *)",
+      "Bash(gh repo *)",
+      "Bash(git push origin main*)",
+      "Bash(git push -u origin main*)",
+      "Bash(git push origin HEAD:main*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f *)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)"
     ]
   }
 }
